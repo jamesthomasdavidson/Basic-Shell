@@ -94,7 +94,8 @@ void execute_job(job* j)
     if(!pid)
     {
         pid_t cpid;
-        if (shell_is_interactive){
+        if (shell_is_interactive)
+        {
             /* Put the process into the process group and give the process group
             the terminal, if appropriate.
             This has to be done both by the shell and in the individual
@@ -130,7 +131,7 @@ void execute_job(job* j)
     {
         /* This is the parent process. */
         j->pid = pid;
-        j->status = -1;
+        j->status = TRUE;
         if (shell_is_interactive)
         {
             if (!j->pgid)
@@ -233,7 +234,8 @@ void remove_job(job *j)
 }
 
 /* Assigns the job a job ID. */
-void assign_job_num(job * j){
+void assign_job_num(job * j)
+{
     int highest = 0;
     int i;
 
