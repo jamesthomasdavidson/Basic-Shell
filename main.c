@@ -27,7 +27,8 @@ static char* current_directory;
 int num_bg_jobs;                              
 
 /* A job as defined by A1 specs.  */
-typedef struct job{    
+typedef struct job
+{    
     char **args;                /* command line, used for messages */
     char* dir;                  /* the dir at which the file was executed from */
     pid_t pid;                  /* process ID */
@@ -37,7 +38,8 @@ typedef struct job{
     bool foreground;            /* true if process is to be run in the foreground */
 }job;
 
-job *bg_list[MAX_JOBS];         /* background job list */
+/* Background job list. */
+job *bg_list[MAX_JOBS];         
 
 /* Function declarations. */
 char* display_shell(char* str);
