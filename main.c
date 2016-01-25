@@ -277,7 +277,7 @@ bool job_exists(int job_num)
     return FALSE;
 }
 
-/* Returns the index of a job in bg_list via its process ID. Returns -1 if the specified pid does not exist in the background job list */
+/* Returns the job_num of a job in bg_list via its process ID. Returns -1 if the specified pid does not exist in the background job list */
 int get_job_num_by_pid(pid_t pid)
 {
     int i;
