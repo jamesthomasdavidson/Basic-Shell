@@ -150,7 +150,7 @@ void execute_job(job* j)
 }
 
 /* Allocates memory and populates the job struct, taking in args and a boolean specifying the foreground/background. */
-job* build_job(char** args, bool fg)
+job* build_job(char** args)
 {
     job* j = malloc(sizeof(job));
 
@@ -170,17 +170,18 @@ job* build_job(char** args, bool fg)
         bg_args[p] = NULL;
         free(args);
         j->args = bg_args;
+        j->foreground = TRUE;
     }
     else
     {
         j->args = args;
+        j->foreground = FALSE;
     }
     /* Assign the job a copy of the directory in which it was executed from. */
     j->dir = malloc(sizeof(char)*strlen(current_directory)+1);
     strcpy(j->dir, current_directory);
 
     /* Populate integer fields. */
-    j->foreground = fg;
     j->pgid = 0;
     assign_job_num(j);
     
@@ -407,7 +408,7 @@ void run_commands(char** args)
             display_shell("Maximum amount of background jobs already active");
             return;
         }
-        job* j = build_job(args, FALSE);
+        job* j = build_job(args);
         execute_job(j);
     }
     /* Lists all jobs in background list. */
@@ -496,7 +497,7 @@ void run_commands(char** args)
     /* args specify a command, run execvp by calling execute_job().  Job will be run in the foreground. */
     else
     {
-        job* j = build_job(args, TRUE);
+        job* j = build_job(args);
         execute_job(j);
         free_job(j);
     }
